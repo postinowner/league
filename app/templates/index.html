@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div id="banner-main" class="x-grid-12 nopad">
+	<div id="banner-main--text" class="x-grid-12"></div>
+	<img src="{{ url_for('static', filename='images/index-banner.jpg') }}" class="x-grid-12 nopad">
+</div>
+
+<div id="test-background" class="x-grid-12 nopad">
+	<img src="{{ url_for('static', filename='images/banner.jpeg') }}">
+</div>
+
+1<br><br><br>2<br><br><br>3<br><br><br>
+4<br><br><br>5<br><br><br>6<br><br><br>
+7<br><br><br>8<br><br><br>9<br><br><br>
+
+1<br><br><br>2<br><br><br>3<br><br><br>
+4<br><br><br>5<br><br><br>6<br><br><br>
+7<br><br><br>8<br><br><br>9<br><br><br>
+
+1<br><br><br>2<br><br><br>3<br><br><br>
+4<br><br><br>5<br><br><br>6<br><br><br>
+7<br><br><br>8<br><br><br>9<br><br><br>
+
+1<br><br><br>2<br><br><br>3<br><br><br>
+4<br><br><br>5<br><br><br>6<br><br><br>
+7<br><br><br>8<br><br><br>9<br><br><br>
+
+1<br><br><br>2<br><br><br>3<br><br><br>
+4<br><br><br>5<br><br><br>6<br><br><br>
+7<br><br><br>8<br><br><br>9<br><br><br>
+
+1<br><br><br>2<br><br><br>3<br><br><br>
+4<br><br><br>5<br><br><br>6<br><br><br>
+7<br><br><br>8<br><br><br>9<br><br><br>
+
+<script>
+
+function bannerFromTop() {
+	var container_height = $("#banner-main").outerHeight();
+	var text_margin = container_height / 2;
+	if (window.matchMedia("(max-width: 767px)").matches) text_margin = text_margin - 50
+	$banner_text.css("margin-top", text_margin);
+}
+
+function displayBannerText() {
+	var phrase = banner_phrases[banner_current_phrase];
+	if (phrase.length >= banner_current) {
+		$banner_text.append(phrase.charAt(banner_current));
+		banner_current++;
+		setTimeout(displayBannerText, 110);
+	}
+	else {
+		banner_current = 0;
+		setTimeout(hideBannerText, 1500);
+	}
+}
+
+function hideBannerText() {
+	$banner_text.animate({"opacity": 0, "margin-top": -100}, 800);
+	if ((banner_phrases.length - 1) > banner_current_phrase) banner_current_phrase++
+	else banner_current_phrase = 0
+	setTimeout(function() {
+		$banner_text.css("opacity", 1).html("");
+		bannerFromTop();
+		displayBannerText();
+	}, 1200);
+}
+
+$banner_text = $("#banner-main--text");
+
+$(window).on("resize load", bannerFromTop);
+
+banner_current = 0;
+banner_current_phrase = 0;
+banner_phrases = Array("League Hub", "Summoners", "Champions", "Live Games", "Tournaments", "Leaderboards");
+
+setTimeout(displayBannerText, 500);
+
+</script>
+
+{% endblock %}

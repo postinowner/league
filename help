@@ -1,0 +1,24 @@
+Pages:
+
+	~ Home
+		Default
+
+	~ Login / Register
+		Accounts
+
+	~ Summoners
+		Search player; Display data, match history, etc.
+	~ Champions
+		Champion image, skins, abilities, info, lore, statistics (data from previous games; charts)
+	~ Live Games
+		Search for current games in progress; streams
+	~ Tournaments
+		Weekly tournaments
+	~ Leaderboards
+		Top players
+
+To Configure:
+
+	~ Databases
+	~ Email Client
+	~ Accounts

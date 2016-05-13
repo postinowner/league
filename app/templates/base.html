@@ -1,0 +1,162 @@
+<html>
+<head>
+	{% if title %} <title>{{ title }}, League Hub</title>
+	{% else %} <title>League Hub</title>
+	{% endif %}
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/framework.css') }}"/>
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}"/>
+	<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/' + css + '.css') }}"/>
+	<link type="image/png" rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="description" content="">
+	<meta name="keywords" content="">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"> </script>
+</head>
+<body>
+	<div id="wrapper">
+
+		<div id="header" class="x-grid-12 nopad">
+			<a href="{{ url_for('index') }}">
+				<div id="header-logo" class="s-grid-a">
+					League Hub
+				</div>
+			</a>
+
+			<a href="{{ url_for('index') }}">
+				<div class="header-item s-grid-a">
+					Leaderboards
+				</div>
+			</a>
+			<a href="{{ url_for('index') }}">
+				<div class="header-item s-grid-a">
+					Tournaments
+				</div>
+			</a>
+			<a href="{{ url_for('index') }}">
+				<div class="header-item s-grid-a">
+					Live Games
+				</div>
+			</a>
+			<a href="{{ url_for('index') }}">
+				<div class="header-item s-grid-a">
+					Champions
+				</div>
+			</a>
+			<a href="{{ url_for('index') }}">
+				<div class="header-item s-grid-a">
+					Summoners
+				</div>
+			</a>
+		</div>
+
+		<div id="header-mobile" class="x-grid-12 nopad">
+			<div id="header-mobile--menu" class="x-grid-a nopad">
+				<span class="gly gly-menu-hamburger"></span>
+			</div>
+
+			<a href="{{ url_for('index') }}">
+				<div id="header-mobile--logo" class="x-grid-12">
+					League Hub
+				</div>
+			</a>
+
+			<div id="header-mobile--item--holder" class="x-grid-12 nopad">
+				<a href="{{ url_for('index') }}">
+					<div class="header-mobile--item x-grid-12">
+						Summoners
+					</div>
+				</a>
+				<a href="{{ url_for('index') }}">
+					<div class="header-mobile--item x-grid-12">
+						Champions
+					</div>
+				</a>
+				<a href="{{ url_for('index') }}">
+					<div class="header-mobile--item x-grid-12">
+						Live Games
+					</div>
+				</a>
+				<a href="{{ url_for('index') }}">
+					<div class="header-mobile--item x-grid-12">
+						Tournaments
+					</div>
+				</a>
+				<a href="{{ url_for('index') }}">
+					<div class="header-mobile--item x-grid-12">
+						Leaderboards
+					</div>
+				</a>
+			</div>
+		</div>
+
+		<div id="content" class="x-grid-12 nopad">
+			{% block content %}{% endblock %}
+		</div>
+
+	</div>
+
+	<div id="scroll-animation--container" class="x-grid-12 nopad"></div>
+
+</body>
+</html>
+
+<script>
+
+$("#header-mobile").css("background","url({{ url_for('static', filename='images/nav_bar.jpg') }}) repeat-x center");
+
+$("#header-mobile--menu").click(function() {
+	$("#header-mobile--item--holder").toggle();
+});
+
+$(window).on("scroll", function() {
+	var fromTop = $("body").scrollTop();
+	var banner = $("#banner-main").height();
+	if (fromTop > banner) {
+		$("#header").css({
+			"position" : "fixed",
+			"border-bottom" : "5px solid white",
+			"background" : "url({{ url_for('static', filename='images/nav_bar.jpg') }}) repeat-x center"
+		});
+	}
+	else {
+		$("#header").css({
+			"position" : "relative",
+			"border-bottom" : "0px",
+			"background" : "rgba(224, 255, 255, 0.25)"
+		});
+	}
+});
+
+$(window).on("scroll", function() {
+	for (var i = 0; i < 4; i++) {
+		$("#scroll-animation--container").append('<div class="scroll-animation--bubble x-grid-a nopad"></div>');
+	}
+
+	$("#scroll-animation--container").find('.scroll-animation--bubble').each(function() {
+		var left = Math.floor(Math.random() * 101);
+		var size = 5 + Math.floor(Math.random() * 11);
+		var speed = 1 + Math.floor(Math.random() * 3);
+		var blur = Math.floor(Math.random() * 5);
+		
+		var $this = $(this);
+		
+		$this.css({
+			"left" : left + "%",
+			"width" : size + "px",
+			"height" : size + "px",
+			"-webkit-filter" : "blur(" + blur  + "px)",
+			"-moz-filter" : "blur(" + blur  + "px)",
+			"-ms-filter" : "blur(" + blur  + "px)",
+			"filter" : "blur(" + blur  + "px)",
+		});
+
+		$this.animate({"bottom": 120 - size, "opacity": 0}, speed * 1000);
+		setTimeout(function() {
+			$this.remove();
+		}, speed * 1000);
+	});
+});
+
+</script>
