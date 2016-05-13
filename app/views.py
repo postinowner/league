@@ -1,4 +1,5 @@
 from flask import current_app, render_template
+from .models import *
 from app import app
 
 @app.route('/')
